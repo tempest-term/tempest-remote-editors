@@ -1,0 +1,36 @@
+<idea-plugin>
+  <id>app.gotempest.remote</id>
+  <name>Tempest Remote</name>
+  <version>3.17.4</version>
+  <vendor url="https://gotempest.app">Altas Express LLC</vendor>
+  <description><![CDATA[
+    <p>Open saved Tempest SSH servers directly from JetBrains Gateway.</p>
+    <p>Select a saved server in Tempest, then choose its SSH configuration in Gateway's native wizard.
+    Tempest CLI manages accounts, SSH credentials, proxies, jump hosts and connection lifetime.</p>
+    <p>Gateway handles project and IDE selection, installation, startup, progress and the JetBrains Client.</p>
+    <p>Requires Tempest CLI with direct SSH endpoint support (remote.ensure.ssh), Node.js 18+ and JetBrains Gateway locally.
+    The selected vault must permit TCP forwarding. Remote hosts must meet JetBrains' requirements.</p>
+    <p><a href="https://docs.gotempest.app/integrations/tempest-remote-editors#jetbrains">Documentation</a> ·
+    <a href="https://github.com/tempest-term/tempest-remote-editors">Source code and issue tracker</a></p>
+  ]]></description>
+  <change-notes><![CDATA[
+    <ul>
+      <li>Thin bootstrap from saved Tempest servers into Gateway's native SSH wizard.</li>
+      <li>Native Gateway SSH to the CLI’s existing loopback endpoint with strict host-key verification.</li>
+      <li>Embedded server picker, local authentication, native progress and cancellation.</li>
+    </ul>
+  ]]></change-notes>
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.jetbrains.gateway</depends>
+  <extensions defaultExtensionNs="com.jetbrains">
+    <gatewayConnector implementation="app.gotempest.remote.TempestGatewayConnector"/>
+  </extensions>
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationService serviceImplementation="app.gotempest.remote.Connections"/>
+  </extensions>
+  <actions>
+    <action id="Tempest.Connect" class="app.gotempest.remote.ConnectAction" text="Tempest: Connect to Server…">
+      <add-to-group group-id="ToolsMenu" anchor="last"/>
+    </action>
+  </actions>
+</idea-plugin>

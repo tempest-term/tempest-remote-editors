@@ -1,0 +1,29 @@
+{
+  "name": "tempest-remote-editors",
+  "version": "3.17.4",
+  "private": true,
+  "description": "Tempest Remote integrations for VS Code, Cursor, JetBrains, Zed and SSH tools.",
+  "license": "MIT",
+  "author": "Altas Express LLC",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@tempest-term/remote-sdk": "^0.1.1"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "check": "node --check scripts/remote.js && node --check scripts/clients.js && node scripts/check-versions.js",
+    "test": "node --test test/*.test.js",
+    "package": "python3 scripts/package.py",
+    "package:vscode": "npm --prefix vscode run package",
+    "package:cursor": "npm --prefix vscode run package:cursor"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tempest-term/tempest-remote-editors.git"
+  },
+  "bin": {
+    "tempest-remote": "scripts/remote.js"
+  }
+}

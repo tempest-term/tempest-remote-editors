@@ -1,0 +1,97 @@
+{
+  "name": "tempest-remote",
+  "displayName": "Tempest Remote",
+  "description": "Open saved Tempest SSH servers in VS Code with the Tempest CLI.",
+  "version": "3.17.4",
+  "publisher": "AltasExpressLLC",
+  "private": true,
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "main": "./src/extension.js",
+  "extensionKind": [
+    "ui"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "extensionDependencies": [
+    "ms-vscode-remote.remote-ssh"
+  ],
+  "activationEvents": [
+    "onCommand:tempest.connect",
+    "onResolveRemoteAuthority:ssh-remote"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false
+    },
+    "virtualWorkspaces": false
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "tempest.connect",
+        "title": "Tempest: Connect to Server"
+      },
+      {
+        "command": "tempest.settings",
+        "title": "Tempest: Open Settings"
+      }
+    ],
+    "configuration": {
+      "title": "Tempest Remote",
+      "properties": {
+        "tempest.cliPath": {
+          "type": "string",
+          "default": "tempest",
+          "scope": "machine",
+          "description": "Local Tempest CLI executable. Leave as tempest to use PATH, or enter an absolute path. Configure this in local User Settings; no settings.json editing is required."
+        }
+      },
+      "id": "tempest"
+    },
+    "menus": {
+      "statusBar/remoteIndicator": [
+        {
+          "command": "tempest.connect",
+          "group": "remote_12_ssh_tempest@1"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "check": "node --check src/extension.js && node --check scripts/publish-marketplace.js && node --check scripts/package-vscode.js && node --check scripts/package-cursor.js",
+    "package": "node scripts/package-vscode.js",
+    "publish:vsix": "node scripts/publish-marketplace.js",
+    "package:cursor": "node scripts/package-cursor.js"
+  },
+  "license": "MIT",
+  "homepage": "https://gotempest.app",
+  "author": "Altas Express LLC",
+  "icon": "media/icon.png",
+  "keywords": [
+    "tempest",
+    "ssh",
+    "remote",
+    "remote-ssh",
+    "remote development",
+    "cli",
+    "jump host",
+    "bastion",
+    "terminal"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tempest-term/tempest-remote-editors.git",
+    "directory": "vscode"
+  },
+  "dependencies": {
+    "@tempest-term/remote-sdk": "^0.1.1"
+  },
+  "devDependencies": {
+    "@azure/identity": "4.13.2",
+    "@vscode/vsce": "4.0.0"
+  }
+}
